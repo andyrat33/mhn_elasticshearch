@@ -1,3 +1,5 @@
+import sys
+
 from elasticsearch import Elasticsearch
 import pathlib
 import argparse
@@ -6,13 +8,22 @@ es = Elasticsearch(hosts="mhn", port='9200')
 # ['https://user:secret@localhost:443']
 
 parser = argparse.ArgumentParser()
-
+# Use Cases
+# 1. Passwords for dictionary (default)
+# 2. IP Addresses of SSH Cowie Auth attempts
+# 3. IP Addresses of Dionaea Attacker
+# Positional Arguments <server> [port default:9200]
+#TODO Add Command-line option and argument Parsing for Use Cases
 parser = argparse.ArgumentParser(description="Get passwords from MHN and store to a named file")
 group = parser.add_mutually_exclusive_group()
-group.add_argument("-f", "--file", dest="filename", help="password file", default='passwords.txt', metavar="FILE")
+group.add_argument("-f", "--file", dest="filename", help="file name", default='passwords.txt', metavar="FILE")
+group2 = parser.add_mutually_exclusive_group()
+group2.add_argument("-a", help="Attacker IP Addresses", dest="ip_addr", action="store_true")
+
+
 args = parser.parse_args()
 
-
+print(parser.parse_args())
 
 def iterate_distinct_field(es, fieldname, pagesize=250, **kwargs):
     """
