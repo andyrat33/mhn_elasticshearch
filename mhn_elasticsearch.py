@@ -14,7 +14,21 @@ parser = argparse.ArgumentParser()
 # 3. IP Addresses of Dionaea Attacker
 # Positional Arguments <server> [port default:9200]
 #TODO Add Command-line option and argument Parsing for Use Cases
-parser = argparse.ArgumentParser(description="Get passwords from MHN and store to a named file")
+parser = argparse.ArgumentParser(description="Get Passwords/Threat Intel from Modern Honey Net and store to a named file")
+subparsers = parser.add_subparsers(help='commands')
+
+# A passwords command
+list_parser = subparsers.add_parser('passwords', help='Create a password dictionary')
+list_parser.add_argument('file name', action='store', help='Passwords file name')
+# A ip's command
+create_parser = subparsers.add_parser('auth', help='IP Addresses of SSH Cowie Auth attempt')
+create_parser.add_argument('dirname', action='store', help='New directory to create')
+create_parser.add_argument('--read-only', default=False, action='store_true', help='Set permissions to prevent writing to the directory',)
+#A delete command
+delete_parser = subparsers.add_parser('attack', help='IP Addresses of Dionaea Attacker')
+delete_parser.add_argument('dirname', action='store', help='The directory to remove')
+delete_parser.add_argument('--recursive', '-r', default=False, action='store_true', help='Remove the contents of the directory, too',)
+
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-f", "--file", dest="filename", help="file name", default='passwords.txt', metavar="FILE")
 group2 = parser.add_mutually_exclusive_group()
