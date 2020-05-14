@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 
 import sys
-
 from elasticsearch import Elasticsearch
 import pathlib
 import argparse
-
-
 
 def iterate_distinct_field(es, fieldname, pagesize=250, **kwargs):
     """
@@ -47,8 +44,8 @@ parser = argparse.ArgumentParser()
 # Use Cases
 # 1. Passwords for dictionary (default)
 # 2. IP Addresses
-# Positional Arguments <server> [port default:9200]
-#TODO Add Command-line option and argument Parsing for Use Cases
+# Optional Arguments -e <server> [-p port default:9200]
+
 parser = argparse.ArgumentParser(description="Get Passwords/Threat Intel from Modern Honey Net Elasticsearch and store to a named file")
 parser.add_argument('-e', dest='mhn_address', action='store', help='MHN Elasticsearch host Address', default='mhn', )
 parser.add_argument('-p', help="MHN Port (default 9200)", default=9200, type=int, action='store', dest='mhn_port')
@@ -63,7 +60,7 @@ ip_parser.add_argument('filename', action='store', help='File name for IP Addres
 
 args = parser.parse_args()
 es = Elasticsearch(hosts=args.mhn_address, port=args.mhn_port)
-print(parser.parse_args())
+
 
 if args.command == 'passwords':
     #print('passwords')
@@ -71,9 +68,6 @@ if args.command == 'passwords':
 elif args.command == 'ip':
     #print('ip')
     fieldname = 'src_ip'
-
-
-print(args)
 
 yesno = 'y'
 
