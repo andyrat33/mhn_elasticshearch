@@ -61,7 +61,6 @@ ip_parser.add_argument('filename', action='store', help='File name for IP Addres
 args = parser.parse_args()
 es = Elasticsearch(hosts=args.mhn_address, port=args.mhn_port)
 
-
 if args.command == 'passwords':
     #print('passwords')
     fieldname = 'ssh_password'
