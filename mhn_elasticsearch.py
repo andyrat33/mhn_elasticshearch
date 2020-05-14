@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 
 from elasticsearch import Elasticsearch
@@ -47,8 +49,8 @@ parser = argparse.ArgumentParser()
 # 2. IP Addresses
 # Positional Arguments <server> [port default:9200]
 #TODO Add Command-line option and argument Parsing for Use Cases
-parser = argparse.ArgumentParser(description="Get Passwords/Threat Intel from Modern Honey Net and store to a named file")
-parser.add_argument('-e', dest='mhn_address', action='store', help='MHN Address', default='mhn', )
+parser = argparse.ArgumentParser(description="Get Passwords/Threat Intel from Modern Honey Net Elasticsearch and store to a named file")
+parser.add_argument('-e', dest='mhn_address', action='store', help='MHN Elasticsearch host Address', default='mhn', )
 parser.add_argument('-p', help="MHN Port (default 9200)", default=9200, type=int, action='store', dest='mhn_port')
 subparsers = parser.add_subparsers(help='commands', dest='command')
 
