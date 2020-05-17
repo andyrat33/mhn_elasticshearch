@@ -42,7 +42,7 @@ def iterate_distinct_field(es, fieldname, pagesize=250, **kwargs):
 
 parser = argparse.ArgumentParser()
 # Use Cases
-# 1. Passwords for dictionary (default)
+# 1. Passwords for dictionary
 # 2. IP Addresses
 # Optional Arguments -e <server> [-p port default:9200]
 
