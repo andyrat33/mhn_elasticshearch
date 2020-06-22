@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "title": "mnh_elasticsearch Threat Model",
+    "owner": "AR",
+    "description": "Exports data from MHN-* in elasticseach  - Modern Honey Net"
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "AR"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "MHN",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "id": 0
+      }
+    ],
+    "reviewer": "AR"
+  }
+}
