@@ -64,6 +64,7 @@ ip_parser = subparsers.add_parser("ip", help="IP Addresses of attackers")
 ip_parser.add_argument("filename", action="store", help="File name for IP Addresses")
 
 args = parser.parse_args()
+
 es = Elasticsearch(hosts=args.mhn_address, port=args.mhn_port)
 if es.ping():
     if args.command == "passwords":
@@ -72,6 +73,9 @@ if es.ping():
     elif args.command == "ip":
         # print('ip')
         fieldname = "src_ip"
+    else:
+        print('Usage: mhn_elasticsearch.py -h')
+        sys.exit()
 
     yesno = "y"
 
