@@ -82,20 +82,18 @@ if es.ping():
     file = pathlib.Path(args.filename)
     if file.exists():
         yesno = input("File {} exists append to it? (Y/N) ".format(args.filename))
-
-    if yesno == "y" or yesno == "Y":
-        for result in iterate_distinct_field(es, fieldname=fieldname, index="mhn-*"):
-            # print(result['key']['ssh_password'])  # e.g. {'key': {'pattern': 'mypattern'}, 'doc_count': 315}
-            try:
-                fn = open(args.filename, mode="ab")
-            except IOError as e:
-                print("Error: {}".format(e))
-                sys.exit()
-            else:
-                with fn:
+    try:
+        fn = open(args.filename, mode="ab")
+    except IOError as e:
+        print("Error: {}".format(e))
+        sys.exit()
+    else:
+        with fn:
+            if yesno == "y" or yesno == "Y":
+                for result in iterate_distinct_field(es, fieldname=fieldname, index="mhn-*"):
                     fn.write(result["key"][fieldname].encode("utf-8"))
                     fn.write(b"\n")
-    else:
-        print("Aborted")
+            else:
+                print("Aborted")
 else:
     print("Failed to connect to {}".format(args.mhn_address))
