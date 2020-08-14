@@ -64,25 +64,23 @@ ip_parser = subparsers.add_parser("ip", help="IP Addresses of attackers")
 ip_parser.add_argument("filename", action="store", help="File name for IP Addresses")
 
 args = parser.parse_args()
+if args.command == "passwords":
+    # print('passwords')
+    fieldname = "ssh_password"
+elif args.command == "ip":
+    # print('ip')
+    fieldname = "src_ip"
+else:
+    print('Usage: mhn_elasticsearch.py -h')
+    sys.exit()
 
 es = Elasticsearch(hosts=args.mhn_address, port=args.mhn_port)
 if es.ping():
-    if args.command == "passwords":
-        # print('passwords')
-        fieldname = "ssh_password"
-    elif args.command == "ip":
-        # print('ip')
-        fieldname = "src_ip"
-    else:
-        print('Usage: mhn_elasticsearch.py -h')
-        sys.exit()
-
     yesno = "y"
-
     file = pathlib.Path(args.filename)
     if file.exists():
         yesno = input("File {} exists append to it? (Y/N) ".format(args.filename))
-    if yesno == "y" or yesno == "Y":
+    if str.upper(yesno) == "Y":
         try:
             fn = open(args.filename, mode="ab")
         except IOError as e:
